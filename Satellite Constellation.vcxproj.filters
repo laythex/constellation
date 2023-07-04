@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{26e85562-34eb-4399-bc7d-54ac1ee30fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\fonts">
+      <UniqueIdentifier>{188b20a8-033a-4582-b698-82a990793c9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constellation.cpp">
@@ -74,5 +80,48 @@
     <ClInclude Include="UIController.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Arial.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </Font>
+    <Font Include="fonts\Qore.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\bankrupt.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\earth.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\elonmusk0.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\elonmusk1.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\elonmusk2.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\elonmusk3.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\elonmusk4.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\elonmusk5.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\fallout.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\mars.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\tutorial.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

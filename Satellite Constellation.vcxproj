@@ -148,6 +148,23 @@
     <ClInclude Include="UIController.hpp" />
     <ClInclude Include="Vector.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Arial.ttf" />
+    <Font Include="fonts\Qore.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\bankrupt.png" />
+    <Image Include="images\earth.png" />
+    <Image Include="images\elonmusk0.png" />
+    <Image Include="images\elonmusk1.png" />
+    <Image Include="images\elonmusk2.png" />
+    <Image Include="images\elonmusk3.png" />
+    <Image Include="images\elonmusk4.png" />
+    <Image Include="images\elonmusk5.png" />
+    <Image Include="images\fallout.png" />
+    <Image Include="images\mars.png" />
+    <Image Include="images\tutorial.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
