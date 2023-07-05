@@ -14,7 +14,7 @@ const float Constants::VERTICAL_RESOLUTION = 900;
 
 const float Constants::EARTH_RADIUS_ON_SCREEN = 200;
 const float Constants::SCALE_FACTOR = Constants::EARTH_RADIUS_ON_SCREEN / Constants::EARTH_RADIUS;
-const float Constants::SAT_R = 5;
+const float Constants::SATELLITE_RADIUS = 5;
 const float Constants::LINE_THICKNESS = 5;
 const unsigned Constants::DETAIL = 500;
 
@@ -69,6 +69,9 @@ const Constants::City Constants::CITIES[] = {
 
 const sf::Color Constants::MAIN_COLOR = sf::Color(139, 229, 208, 255);
 const sf::Color Constants::TUTORIAL_PLATE_COLOR = sf::Color(255, 255, 255, 200);
+const sf::Color Constants::DEFAULT_ORBIT_COLOR = sf::Color::Green;
+const sf::Color Constants::SELECTION_ORBIT_COLOR = sf::Color::Magenta;
+const sf::Color Constants::SATELLITE_COLOR = sf::Color::Red;
 
 const unsigned Constants::FPS_DISPLAY_FONT_SIZE = 24;
 const unsigned Constants::BALANCE_DISPLAY_FONT_SIZE = 36;

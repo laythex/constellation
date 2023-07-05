@@ -16,7 +16,7 @@ public:
 
 	static const float EARTH_RADIUS_ON_SCREEN;
 	static const float SCALE_FACTOR;
-	static const float SAT_R;
+	static const float SATELLITE_RADIUS;
 	static const float LINE_THICKNESS;
 	static const unsigned DETAIL;
 
@@ -62,6 +62,9 @@ public:
 
 	static const sf::Color MAIN_COLOR;
 	static const sf::Color TUTORIAL_PLATE_COLOR;
+	static const sf::Color DEFAULT_ORBIT_COLOR;
+	static const sf::Color SELECTION_ORBIT_COLOR;
+	static const sf::Color SATELLITE_COLOR;
 	
 	static const unsigned FPS_DISPLAY_FONT_SIZE;
 	static const unsigned BALANCE_DISPLAY_FONT_SIZE;

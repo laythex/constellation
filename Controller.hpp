@@ -6,6 +6,7 @@
 #include "Tools.hpp"
 #include "Constellation.hpp"
 #include "Request.hpp"
+#include "UIController.hpp"
 
 class Controller {
 public:
@@ -13,14 +14,13 @@ public:
 
 private:
 	void update();
-	void drawConstellation(Constellation net, sf::Color color = sf::Color::Green);
+	void drawConstellation(Constellation net, bool isSelectionNet);
 	void drawRequests(std::vector<Request> requests);
 
 	void onStart();
 	void onUpdate();
 	void handleEndGame();
 	void handleSelection();
-	void handleDisplayText();
 	void changeSelectionOrbit();
 	void evenizeSelectionNet();
 	unsigned long long calculateLaunchCost();
@@ -30,6 +30,8 @@ private:
 
 	Constellation mainNet;
 	sf::RenderWindow window;
+
+	UIController uiController;
 
 	bool isGameEnded;
 	bool isGameWon;

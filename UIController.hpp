@@ -1,5 +1,23 @@
 #pragma once
-class UIController
-{
+
+#include <SFML/Graphics.hpp>
+
+#include "Constants.hpp"
+#include "Tools.hpp"
+
+class UIController {
+public:
+	UIController();
+	void createTextBoxes();
+	void updateTextBoxes(float deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth);
+	void drawTextBoxes(sf::RenderWindow& window, bool isSelecting);
+
+private:
+	sf::Font QoreFont;
+
+	sf::Text FPSDisplay;
+	sf::Text balanceDisplay;
+	sf::Text launchPriceDisplay;
+	sf::Text dateDisplay;
 };
 

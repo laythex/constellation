@@ -16,29 +16,6 @@ void Controller::update() {
 
     sf::Clock deltaClock;
 
-    sf::Font font;
-    font.loadFromFile("../fonts/Qore.ttf");
-
-    sf::Text FPSDisplay;
-    FPSDisplay.setFont(font);
-    FPSDisplay.setCharacterSize(Constants::FPS_DISPLAY_FONT_SIZE);
-    FPSDisplay.setFillColor(sf::Color::White);
-
-    sf::Text BalanceDisplay;
-    BalanceDisplay.setFont(font);
-    BalanceDisplay.setCharacterSize(Constants::BALANCE_DISPLAY_FONT_SIZE);
-    BalanceDisplay.setFillColor(Constants::MAIN_COLOR);
-
-    sf::Text LaunchPriceDisplay;
-    LaunchPriceDisplay.setFont(font);
-    LaunchPriceDisplay.setCharacterSize(Constants::LAUNCH_PRICE_DISPLAY_FONT_SIZE);
-    LaunchPriceDisplay.setFillColor(Constants::MAIN_COLOR);
-
-    sf::Text DateDisplay;
-    DateDisplay.setFont(font);
-    DateDisplay.setCharacterSize(36);
-    DateDisplay.setFillColor(Constants::MAIN_COLOR);
-
     sf::Texture earthTexture;
     earthTexture.loadFromFile("../images/earth.png");
 
@@ -128,48 +105,30 @@ void Controller::update() {
             if (sat.getKepler().sma < Constants::EARTH_RADIUS + Constants::ATMO_HEIGHT) mainNet.sats.erase(remove(mainNet.sats.begin(), mainNet.sats.end(), sat));
         }
 
-        FPSDisplay.setString(std::to_string((int)(1 / deltaTimeSeconds)));
-        Tools::centerText(FPSDisplay);
-        FPSDisplay.setPosition(Constants::FPS_DISPLAY_POSITION);
-
-        BalanceDisplay.setString("$" + Tools::formatString(balance));
-        Tools::centerText(BalanceDisplay);
-        BalanceDisplay.setPosition(Constants::BALANCE_DISPLAY_POSITION);
-
-        LaunchPriceDisplay.setString("$" + Tools::formatString(launchCost));
-        Tools::centerText(LaunchPriceDisplay);
-        LaunchPriceDisplay.setPosition(Constants::LAUNCH_PRICE_DISPLAY_POSITION);
-
-        DateDisplay.setString(std::to_string(getNumberOfMonth()));
-        Tools::centerText(DateDisplay);
-        DateDisplay.setPosition(Constants::DATE_DISPLAY_POSITION);
-        std::cout << frameTicker << "\t" << getNumberOfMonth() << std::endl;
+        uiController.updateTextBoxes(deltaTimeSeconds, balance, launchCost, getNumberOfMonth());
         
         window.clear();
         window.draw(earth);
         window.draw(tutorialPlate);
 
+        uiController.drawTextBoxes(window, isSelecting);
+
         balance += manageRequests(requests, deltaTimeSeconds);
         drawRequests(requests);
 
         mainNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
-        drawConstellation(mainNet);
+        drawConstellation(mainNet, false);
 
         if (isSelecting) {
             selectionNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
-            drawConstellation(selectionNet, sf::Color::Magenta);
-            window.draw(LaunchPriceDisplay);
+            drawConstellation(selectionNet, true);
         }
-
-        window.draw(FPSDisplay);
-        window.draw(BalanceDisplay);
-        window.draw(DateDisplay);
 
         window.display();
     }
 }
 
-void Controller::drawConstellation(Constellation net, sf::Color color) {
+void Controller::drawConstellation(Constellation net, bool isSelectionNet) {
     for (auto& sat : net.sats) {
         float theta1 = -1, theta2 = -1, dtheta, theta;
         bool prev = false, curr = false;
@@ -209,15 +168,19 @@ void Controller::drawConstellation(Constellation net, sf::Color color) {
             pos = kep.convertToRV() * Constants::SCALE_FACTOR;
 
             orbit[i].position = sf::Vector2f(pos.getX(), -pos.getZ());
-            orbit[i].color = color;
+
+            if (isSelectionNet)
+                orbit[i].color = Constants::SELECTION_ORBIT_COLOR;
+            else
+                orbit[i].color = Constants::DEFAULT_ORBIT_COLOR;
         }
 
         window.draw(orbit);
 
-        sf::CircleShape satellite(Constants::SAT_R);
+        sf::CircleShape satellite(Constants::SATELLITE_RADIUS);
 
-        satellite.setFillColor(sf::Color::Red);
-        satellite.setOrigin(Constants::SAT_R, Constants::SAT_R);
+        satellite.setFillColor(Constants::SATELLITE_COLOR);
+        satellite.setOrigin(Constants::SATELLITE_RADIUS, Constants::SATELLITE_RADIUS);
 
         kep = sat.getKepler();
         pos = kep.convertToRV() * Constants::SCALE_FACTOR;
@@ -269,6 +232,9 @@ void Controller::onStart() {
     isSelecting = false;
 
     deltaNumberOfSatellites = 1;
+
+    uiController = UIController();
+    uiController.createTextBoxes();
 }
 
 void Controller::onUpdate() {
@@ -322,10 +288,6 @@ void Controller::handleSelection()
         evenizeSelectionNet();
 
     launchCost = calculateLaunchCost();
-}
-
-void Controller::handleDisplayText() {
-
 }
 
 void Controller::changeSelectionOrbit() {
