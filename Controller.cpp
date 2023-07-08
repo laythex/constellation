@@ -16,10 +16,10 @@ void Controller::update() {
 
     sf::Clock deltaClock;
 
-    sf::Texture earthTexture;
+    sf::Texture earthTexture;g7
     earthTexture.loadFromFile("../images/earth.png");
 
-    sf::CircleShape earth(Constants::EARTH_RADIUS_ON_SCREEN);
+    earth = sf::CircleShape(Constants::EARTH_RADIUS_ON_SCREEN);
     earth.setTexture(&earthTexture);
     earth.setOrigin(Constants::EARTH_RADIUS_ON_SCREEN, Constants::EARTH_RADIUS_ON_SCREEN);
     earth.setPosition(0, 0);
@@ -27,18 +27,14 @@ void Controller::update() {
     sf::Texture tutorialTexture;
     tutorialTexture.loadFromFile("../images/tutorial.png");
 
-    sf::RectangleShape tutorialPlate(Constants::TUTORIAL_PLATE_SIZE);
+    tutorialPlate = sf::RectangleShape(Constants::TUTORIAL_PLATE_SIZE);
     tutorialPlate.setTexture(&tutorialTexture);
     tutorialPlate.setFillColor(Constants::TUTORIAL_PLATE_COLOR);
     tutorialPlate.setPosition(Constants::TUTORIAL_PLATE_POSITION);
 
     float elapsedTimeBetweenRequests = 0;
-    std::vector<Request> requests;
 
     int numberOfBGs = 1;
-
-    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
-    window.setView(view);
 
     while (window.isOpen())
     {
@@ -53,15 +49,7 @@ void Controller::update() {
 
         frameTicker++;
 
-        if (getNumberOfMonth() > Constants::AMOUNT_OF_MONTHS || balance < 0) {
-            isGameEnded = true;
-            isGameWon = false;
-        }
-
-        if (balance > Constants::AMOUNT_OF_MONEY_REQUIRED_TO_WIN) {
-            isGameEnded = true;
-            isGameWon = true;
-        }
+        checkEndGameConditions();
 
         if (isGameEnded) {
             handleEndGame();
@@ -107,22 +95,7 @@ void Controller::update() {
 
         uiController.updateTextBoxes(deltaTimeSeconds, balance, launchCost, getNumberOfMonth());
         
-        window.clear();
-        window.draw(earth);
-        window.draw(tutorialPlate);
-
-        uiController.drawTextBoxes(window, isSelecting);
-
-        balance += manageRequests(requests, deltaTimeSeconds);
-        drawRequests(requests);
-
-        mainNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
-        drawConstellation(mainNet, false);
-
-        if (isSelecting) {
-            selectionNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
-            drawConstellation(selectionNet, true);
-        }
+        onUpdate();
 
         window.display();
     }
@@ -222,6 +195,9 @@ long long Controller::manageRequests(std::vector<Request>& requests, float dt) {
 }
 
 void Controller::onStart() {
+    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
+    window.setView(view);
+
     frameTicker = 0;
 
     balance = Constants::START_BALANCE;
@@ -238,7 +214,23 @@ void Controller::onStart() {
 }
 
 void Controller::onUpdate() {
+    window.clear();
 
+    window.draw(earth);
+    window.draw(tutorialPlate);
+
+    uiController.drawTextBoxes(window, isSelecting);
+
+    balance += manageRequests(requests, deltaTimeSeconds);
+    drawRequests(requests);
+
+    mainNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
+    drawConstellation(mainNet, false);
+
+    if (isSelecting) {
+        selectionNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
+        drawConstellation(selectionNet, true);
+    }
 }
 
 void Controller::handleEndGame() {
@@ -275,6 +267,18 @@ void Controller::handleEndGame() {
     }
 
     window.display();
+}
+
+void Controller::checkEndGameConditions() {
+    if (getNumberOfMonth() > Constants::AMOUNT_OF_MONTHS || balance < 0) {
+        isGameEnded = true;
+        isGameWon = false;
+    }
+
+    if (balance > Constants::AMOUNT_OF_MONEY_REQUIRED_TO_WIN) {
+        isGameEnded = true;
+        isGameWon = true;
+    }
 }
 
 void Controller::handleSelection()

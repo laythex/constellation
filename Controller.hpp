@@ -20,6 +20,7 @@ private:
 	void onStart();
 	void onUpdate();
 	void handleEndGame();
+	void checkEndGameConditions();
 	void handleSelection();
 	void changeSelectionOrbit();
 	void evenizeSelectionNet();
@@ -48,4 +49,9 @@ private:
     Constellation selectionNet;
 
 	float deltaNumberOfSatellites;
+
+	std::vector<Request> requests;
+
+	sf::CircleShape earth;
+	sf::RectangleShape tutorialPlate;
 };
