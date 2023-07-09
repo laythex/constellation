@@ -13,9 +13,8 @@ public:
 	Controller();
 
 private:
-	void update();
 	void drawConstellation(Constellation net, bool isSelectionNet);
-	void drawRequests(std::vector<Request> requests);
+	void drawRequests();
 
 	void onStart();
 	void onUpdate();
@@ -24,10 +23,12 @@ private:
 	void handleSelection();
 	void changeSelectionOrbit();
 	void evenizeSelectionNet();
-	unsigned long long calculateLaunchCost();
+	void handleLaunchKeys();
+	void handleRequests();
+	void handleOrbitDecay();
+	unsigned long long calculateLaunchPrice();
 	unsigned long long getNumberOfMonth();
 
-	long long manageRequests(std::vector<Request>& requests, float dt);
 
 	Constellation mainNet;
 	sf::RenderWindow window;
@@ -49,9 +50,13 @@ private:
     Constellation selectionNet;
 
 	float deltaNumberOfSatellites;
+	float timeElapsedBetweenRequests;
 
 	std::vector<Request> requests;
 
 	sf::CircleShape earth;
 	sf::RectangleShape tutorialPlate;
+
+	sf::Texture earthTexture;
+	sf::Texture tutorialPlateTexture;
 };

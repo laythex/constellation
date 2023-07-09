@@ -1,40 +1,14 @@
 #pragma once
 
+// text alignment
+// month & year
+
 #include "Controller.hpp"
-#include <iostream>
+
 Controller::Controller() {
-    mainNet = Constellation();
-
-    window.create(sf::VideoMode(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION), "Satellite Constellation");
-    window.setFramerateLimit(Constants::FRAME_RATE);
-
-    update();
-}
-
-void Controller::update() {
     onStart();
 
     sf::Clock deltaClock;
-
-    sf::Texture earthTexture;g7
-    earthTexture.loadFromFile("../images/earth.png");
-
-    earth = sf::CircleShape(Constants::EARTH_RADIUS_ON_SCREEN);
-    earth.setTexture(&earthTexture);
-    earth.setOrigin(Constants::EARTH_RADIUS_ON_SCREEN, Constants::EARTH_RADIUS_ON_SCREEN);
-    earth.setPosition(0, 0);
-
-    sf::Texture tutorialTexture;
-    tutorialTexture.loadFromFile("../images/tutorial.png");
-
-    tutorialPlate = sf::RectangleShape(Constants::TUTORIAL_PLATE_SIZE);
-    tutorialPlate.setTexture(&tutorialTexture);
-    tutorialPlate.setFillColor(Constants::TUTORIAL_PLATE_COLOR);
-    tutorialPlate.setPosition(Constants::TUTORIAL_PLATE_POSITION);
-
-    float elapsedTimeBetweenRequests = 0;
-
-    int numberOfBGs = 1;
 
     while (window.isOpen())
     {
@@ -47,57 +21,85 @@ void Controller::update() {
 
         deltaTimeSeconds = deltaClock.restart().asSeconds();
 
-        frameTicker++;
-
-        checkEndGameConditions();
-
-        if (isGameEnded) {
-            handleEndGame();
-            continue;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !isSelecting) {
-            isSelecting = true;
-
-            selectionNet.sats.push_back(Satellite(frameTicker, Kepler(Constants::EARTH_RADIUS * 1.2f, Constants::PI / 3, Constants::PI / 6, 0)));
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isSelecting) {
-            isSelecting = false;
-
-            if (true || balance > launchCost) {
-                for (auto& sat : selectionNet.sats) mainNet.sats.push_back(sat);
-
-                balance -= launchCost;
-            }
-            deltaNumberOfSatellites = 1;
-
-            selectionNet.sats.clear();
-        }
-
-        if (isSelecting) {
-            handleSelection();
-        }
-
-        elapsedTimeBetweenRequests += deltaTimeSeconds;
-        if (elapsedTimeBetweenRequests > Constants::TIME_BETWEEN_REQUESTS) {
-            Request req;
-            requests.push_back(req);
-
-            elapsedTimeBetweenRequests = 0;
-        }
-
-        for (auto& sat : mainNet.sats) {
-            sat.getKepler().sma -= Constants::ORBIT_DECAY_SPEED / Constants::SCALE_FACTOR * deltaTimeSeconds;
-
-            if (sat.getKepler().sma < Constants::EARTH_RADIUS + Constants::ATMO_HEIGHT) mainNet.sats.erase(remove(mainNet.sats.begin(), mainNet.sats.end(), sat));
-        }
-
-        uiController.updateTextBoxes(deltaTimeSeconds, balance, launchCost, getNumberOfMonth());
-        
         onUpdate();
 
         window.display();
+    }
+}
+
+void Controller::onStart() {
+    window.create(sf::VideoMode(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION), "Satellite Constellation");
+    window.setFramerateLimit(Constants::FRAME_RATE);
+
+    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
+    window.setView(view);
+
+    frameTicker = 0;
+
+    balance = Constants::START_BALANCE;
+
+    isGameEnded = false;
+    isGameWon = false;
+
+    isSelecting = false;
+
+    deltaNumberOfSatellites = 1;
+    timeElapsedBetweenRequests = 0;
+
+    uiController = UIController();
+    uiController.createTextBoxes();
+
+    earthTexture.loadFromFile(Constants::EARTH_TEXTURE_PATH);
+
+    earth = sf::CircleShape(Constants::EARTH_RADIUS_ON_SCREEN);
+    earth.setTexture(&earthTexture);
+    earth.setOrigin(Constants::EARTH_RADIUS_ON_SCREEN, Constants::EARTH_RADIUS_ON_SCREEN);
+    earth.setPosition(0, 0);
+
+    tutorialPlateTexture.loadFromFile(Constants::TUTORIAL_PLATE_TEXTURE_PATH);
+
+    tutorialPlate = sf::RectangleShape(Constants::TUTORIAL_PLATE_SIZE);
+    tutorialPlate.setTexture(&tutorialPlateTexture);
+    tutorialPlate.setFillColor(Constants::TUTORIAL_PLATE_COLOR);
+    tutorialPlate.setPosition(Constants::TUTORIAL_PLATE_POSITION);
+}
+
+void Controller::onUpdate() {
+    frameTicker++;
+
+    checkEndGameConditions();
+
+    if (isGameEnded) {
+        handleEndGame();
+        return;
+    }
+
+    handleLaunchKeys();
+
+    if (isSelecting)
+        handleSelection();
+
+    handleOrbitDecay();
+
+    handleRequests();
+
+    uiController.updateTextBoxes(deltaTimeSeconds, balance, launchCost, getNumberOfMonth());
+
+    window.clear();
+
+    window.draw(earth);
+    window.draw(tutorialPlate);
+
+    drawRequests();
+
+    uiController.drawTextBoxes(window, isSelecting);
+
+    mainNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
+    drawConstellation(mainNet, false);
+
+    if (isSelecting) {
+        selectionNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
+        drawConstellation(selectionNet, true);
     }
 }
 
@@ -163,7 +165,7 @@ void Controller::drawConstellation(Constellation net, bool isSelectionNet) {
     }
 }
 
-void Controller::drawRequests(std::vector<Request> requests) {
+void Controller::drawRequests() {
     for (unsigned int i = 0; i < requests.size(); i++) {
         window.draw(requests[i].startPoint);
         window.draw(requests[i].endPoint);
@@ -171,9 +173,17 @@ void Controller::drawRequests(std::vector<Request> requests) {
     }
 }
 
-long long Controller::manageRequests(std::vector<Request>& requests, float dt) {
+void Controller::handleRequests() {
+    timeElapsedBetweenRequests += deltaTimeSeconds;
+    if (timeElapsedBetweenRequests > Constants::TIME_BETWEEN_REQUESTS) {
+        Request req;
+        requests.push_back(req);
+
+        timeElapsedBetweenRequests = 0;
+    }
+
     for (auto& request : requests) {
-        request.timeToExpire -= dt;
+        request.timeToExpire -= deltaTimeSeconds;
     }
 
     while(requests.size() > 0) {
@@ -186,51 +196,12 @@ long long Controller::manageRequests(std::vector<Request>& requests, float dt) {
         request.Connect(mainNet);
         
         if (request.isSuccessful)
-            gain += Constants::REQUEST_GAIN * dt;
+            gain += Constants::REQUEST_GAIN * deltaTimeSeconds;
         else
-            gain -= Constants::REQUEST_LOSS * dt;
+            gain -= Constants::REQUEST_LOSS * deltaTimeSeconds;
     }
 
-    return gain;
-}
-
-void Controller::onStart() {
-    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
-    window.setView(view);
-
-    frameTicker = 0;
-
-    balance = Constants::START_BALANCE;
-
-    isGameEnded = false;
-    isGameWon = false;
-
-    isSelecting = false;
-
-    deltaNumberOfSatellites = 1;
-
-    uiController = UIController();
-    uiController.createTextBoxes();
-}
-
-void Controller::onUpdate() {
-    window.clear();
-
-    window.draw(earth);
-    window.draw(tutorialPlate);
-
-    uiController.drawTextBoxes(window, isSelecting);
-
-    balance += manageRequests(requests, deltaTimeSeconds);
-    drawRequests(requests);
-
-    mainNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
-    drawConstellation(mainNet, false);
-
-    if (isSelecting) {
-        selectionNet.advanceTimeSecs(Constants::SIMULATION_SPEED);
-        drawConstellation(selectionNet, true);
-    }
+    balance += gain;
 }
 
 void Controller::handleEndGame() {
@@ -291,7 +262,7 @@ void Controller::handleSelection()
     if (needToEvenize)
         evenizeSelectionNet();
 
-    launchCost = calculateLaunchCost();
+    launchCost = calculateLaunchPrice();
 }
 
 void Controller::changeSelectionOrbit() {
@@ -357,7 +328,36 @@ void Controller::evenizeSelectionNet() {
     }
 }
 
-unsigned long long Controller::calculateLaunchCost() {
+void Controller::handleLaunchKeys() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !isSelecting) {
+        isSelecting = true;
+
+        selectionNet.sats.push_back(Satellite(frameTicker, Kepler(Constants::EARTH_RADIUS * 1.2f, Constants::PI / 3, Constants::PI / 6, 0)));
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isSelecting) {
+        isSelecting = false;
+
+        if (true || balance > launchCost) {
+            for (auto& sat : selectionNet.sats) mainNet.sats.push_back(sat);
+
+            balance -= launchCost;
+        }
+        deltaNumberOfSatellites = 1;
+
+        selectionNet.sats.clear();
+    }
+}
+
+void Controller::handleOrbitDecay() {
+    for (auto& sat : mainNet.sats) {
+        sat.getKepler().sma -= Constants::ORBIT_DECAY_SPEED / Constants::SCALE_FACTOR * deltaTimeSeconds;
+
+        if (sat.getKepler().sma < Constants::EARTH_RADIUS + Constants::ATMO_HEIGHT) mainNet.sats.erase(remove(mainNet.sats.begin(), mainNet.sats.end(), sat));
+    }
+}
+
+unsigned long long Controller::calculateLaunchPrice() {
     return selectionNet.sats.size() * Constants::NUMBER_OF_SATELLITES_COST +
         selectionNet[0].getKepler().sma * Constants::SMA_COST * Constants::SCALE_FACTOR +
         abs(selectionNet[0].getKepler().inc - Constants::PI) / Constants::PI * 2 * Constants::INC_COST;

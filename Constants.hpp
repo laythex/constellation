@@ -77,4 +77,7 @@ public:
 
 	static const sf::Vector2f TUTORIAL_PLATE_SIZE;
 	static const sf::Vector2f TUTORIAL_PLATE_POSITION;
+
+	static const std::string EARTH_TEXTURE_PATH;
+	static const std::string TUTORIAL_PLATE_TEXTURE_PATH;
 };

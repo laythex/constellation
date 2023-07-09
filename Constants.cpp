@@ -84,3 +84,6 @@ const sf::Vector2f Constants::DATE_DISPLAY_POSITION = sf::Vector2f(0, Constants:
 
 const sf::Vector2f Constants::TUTORIAL_PLATE_SIZE = sf::Vector2f(490.f, 340.f);
 const sf::Vector2f Constants::TUTORIAL_PLATE_POSITION = sf::Vector2f(-Constants::HORIZONTAL_RESOLUTION / 2 + 50.f, Constants::VERTICAL_RESOLUTION / 2 - TUTORIAL_PLATE_SIZE.y - 50.f);
+
+const std::string Constants::EARTH_TEXTURE_PATH = "../images/earth.png";
+const std::string Constants::TUTORIAL_PLATE_TEXTURE_PATH = "../images/tutorial.png";
