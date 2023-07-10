@@ -1,7 +1,7 @@
 #include "UIController.hpp"
 
 UIController::UIController() {
-    QoreFont.loadFromFile("../fonts/Qore.ttf");
+    QoreFont.loadFromFile("fonts/Qore.ttf");
 }
 
 void UIController::createTextBoxes() {
@@ -37,7 +37,7 @@ void UIController::updateTextBoxes(float deltaTimeSeconds, long long balance, un
     Tools::centerText(launchPriceDisplay);
     launchPriceDisplay.setPosition(Constants::LAUNCH_PRICE_DISPLAY_POSITION);
 
-    dateDisplay.setString(std::to_string(numberOfMonth));
+    dateDisplay.setString(getMonthAndYear(numberOfMonth));
     Tools::centerText(dateDisplay);
     dateDisplay.setPosition(Constants::DATE_DISPLAY_POSITION);
 }
@@ -48,4 +48,12 @@ void UIController::drawTextBoxes(sf::RenderWindow& window, bool isSelecting) {
     if (isSelecting) window.draw(launchPriceDisplay);
     window.draw(dateDisplay);
 
+}
+
+std::string UIController::getMonthAndYear(unsigned long long numberOfMonth) {
+
+    unsigned month = (numberOfMonth + Constants::START_MONTH) % Constants::MONTH_IN_YEAR;
+    unsigned year = (numberOfMonth + Constants::START_MONTH) / Constants::MONTH_IN_YEAR + Constants::START_YEAR;
+
+    return Constants::MONTH_NAMES[month] + ", " + std::to_string(year);
 }

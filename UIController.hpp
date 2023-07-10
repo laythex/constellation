@@ -13,6 +13,8 @@ public:
 	void drawTextBoxes(sf::RenderWindow& window, bool isSelecting);
 
 private:
+	std::string getMonthAndYear(unsigned long long numberOfMonth);
+
 	sf::Font QoreFont;
 
 	sf::Text FPSDisplay;

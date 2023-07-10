@@ -4,10 +4,10 @@
 // month & year
 
 #include "Controller.hpp"
-
+#include <iostream>
 Controller::Controller() {
     onStart();
-
+    std::cout << Constants::AMOUNT_OF_MONTHS;
     sf::Clock deltaClock;
 
     while (window.isOpen())
@@ -217,10 +217,10 @@ void Controller::handleEndGame() {
         sf::Texture emTexture;
         sf::RectangleShape elonmusk(sf::Vector2f(286 / 2, 712 / 2));
 
-        backgroundTexture.loadFromFile("../images/mars.png");
+        backgroundTexture.loadFromFile("images/mars.png");
         backgroud.setTexture(&backgroundTexture);
 
-        emTexture.loadFromFile("../images/elonmusk" + std::to_string(elonMuskAnimationFrame) + ".png");
+        emTexture.loadFromFile("images/elonmusk" + std::to_string(elonMuskAnimationFrame) + ".png");
         elonmusk.setTexture(&emTexture);
         elonmusk.setPosition(-72, 100);
 
@@ -229,9 +229,9 @@ void Controller::handleEndGame() {
     }
     else {
         if (balance > 0)
-            backgroundTexture.loadFromFile("../images/fallout.png");
+            backgroundTexture.loadFromFile("images/fallout.png");
         else
-            backgroundTexture.loadFromFile("../images/bankrupt.png");
+            backgroundTexture.loadFromFile("images/bankrupt.png");
 
         backgroud.setTexture(&backgroundTexture);
         window.draw(backgroud);

@@ -41,8 +41,14 @@ const long long Constants::REQUEST_LOSS = 5E4;
 
 const unsigned Constants::FRAME_RATE = 60;
 const unsigned Constants::GAME_DURATION_SECONDS = 60;
-const unsigned Constants::AMOUNT_OF_MONTHS = 8 + 12 * (2041 - 2023);
+const unsigned Constants::MONTH_IN_YEAR = 12;
+const unsigned Constants::START_YEAR = 2023;
+const unsigned Constants::START_MONTH = 5;
+const unsigned Constants::END_YEAR = 2041;
+const unsigned Constants::END_MONTH = 1;
+const unsigned Constants::AMOUNT_OF_MONTHS = Constants::END_MONTH + Constants::MONTH_IN_YEAR * Constants::END_YEAR - Constants::START_MONTH - Constants::MONTH_IN_YEAR * Constants::START_YEAR;
 const long long unsigned Constants::TIME_DISPLAY_INCREASE_RATE = Constants::FRAME_RATE * Constants::GAME_DURATION_SECONDS / Constants::AMOUNT_OF_MONTHS;
+const std::string Constants::MONTH_NAMES[] = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
 
 const long long Constants::AMOUNT_OF_MONEY_REQUIRED_TO_WIN = 1E9;
 
@@ -85,5 +91,5 @@ const sf::Vector2f Constants::DATE_DISPLAY_POSITION = sf::Vector2f(0, Constants:
 const sf::Vector2f Constants::TUTORIAL_PLATE_SIZE = sf::Vector2f(490.f, 340.f);
 const sf::Vector2f Constants::TUTORIAL_PLATE_POSITION = sf::Vector2f(-Constants::HORIZONTAL_RESOLUTION / 2 + 50.f, Constants::VERTICAL_RESOLUTION / 2 - TUTORIAL_PLATE_SIZE.y - 50.f);
 
-const std::string Constants::EARTH_TEXTURE_PATH = "../images/earth.png";
-const std::string Constants::TUTORIAL_PLATE_TEXTURE_PATH = "../images/tutorial.png";
+const std::string Constants::EARTH_TEXTURE_PATH = "images/earth.png";
+const std::string Constants::TUTORIAL_PLATE_TEXTURE_PATH = "images/tutorial.png";

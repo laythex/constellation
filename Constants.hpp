@@ -43,8 +43,14 @@ public:
 
 	static const unsigned FRAME_RATE;
 	static const unsigned GAME_DURATION_SECONDS;
+	static const unsigned MONTH_IN_YEAR;
+	static const unsigned START_YEAR;
+	static const unsigned START_MONTH;
+	static const unsigned END_YEAR;
+	static const unsigned END_MONTH;
 	static const unsigned AMOUNT_OF_MONTHS;
 	static const unsigned long long TIME_DISPLAY_INCREASE_RATE;
+	static const std::string MONTH_NAMES[12];
 
 	static const long long AMOUNT_OF_MONEY_REQUIRED_TO_WIN;
 
