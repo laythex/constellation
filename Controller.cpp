@@ -2,6 +2,8 @@
 
 // text alignment
 // month & year
+// end game screens
+// cities rework & requests list
 
 #include "Controller.hpp"
 
