@@ -26,19 +26,19 @@ void UIController::createTextBoxes() {
 
 void UIController::updateTextBoxes(float deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth) {
     FPSDisplay.setString(std::to_string((int)(1 / deltaTimeSeconds)));
-    Tools::centerText(FPSDisplay);
+    centerText(FPSDisplay, "LU");
     FPSDisplay.setPosition(Constants::FPS_DISPLAY_POSITION);
 
     balanceDisplay.setString("$" + Tools::formatString(balance));
-    Tools::centerText(balanceDisplay);
+    centerText(balanceDisplay, "RU");
     balanceDisplay.setPosition(Constants::BALANCE_DISPLAY_POSITION);
 
     launchPriceDisplay.setString("$" + Tools::formatString(launchPrice));
-    Tools::centerText(launchPriceDisplay);
+    centerText(launchPriceDisplay, "CU");
     launchPriceDisplay.setPosition(Constants::LAUNCH_PRICE_DISPLAY_POSITION);
 
     dateDisplay.setString(getMonthAndYear(numberOfMonth));
-    Tools::centerText(dateDisplay);
+    centerText(dateDisplay, "CD");
     dateDisplay.setPosition(Constants::DATE_DISPLAY_POSITION);
 }
 
@@ -47,7 +47,6 @@ void UIController::drawTextBoxes(sf::RenderWindow& window, bool isSelecting) {
     window.draw(balanceDisplay);
     if (isSelecting) window.draw(launchPriceDisplay);
     window.draw(dateDisplay);
-
 }
 
 std::string UIController::getMonthAndYear(unsigned long long numberOfMonth) {
@@ -56,4 +55,34 @@ std::string UIController::getMonthAndYear(unsigned long long numberOfMonth) {
     unsigned year = (numberOfMonth + Constants::START_MONTH) / Constants::MONTH_IN_YEAR + Constants::START_YEAR;
 
     return Constants::MONTH_NAMES[month] + ", " + std::to_string(year);
+}
+
+void UIController::centerText(sf::Text& text, std::string alignment) {
+    sf::Vector2f center;
+
+    switch (alignment[0]) {
+    case 'L':
+        center.x = 0;
+        break;
+    case 'C':
+        center.x = text.getLocalBounds().width / 2;
+        break;
+    case 'R':
+        center.x = text.getLocalBounds().width;
+        break;
+    }
+
+    switch (alignment[1]) {
+    case 'U':
+        center.y = 0;
+        break;
+    case 'C':
+        center.y = text.getLocalBounds().height / 2;
+        break;
+    case 'D':
+        center.y = text.getLocalBounds().height;
+        break;
+    }
+ 
+    text.setOrigin(center);
 }

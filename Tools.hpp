@@ -9,7 +9,5 @@ public:
 	static float constrainAngle(float angle);
 
 	static std::string formatString(long long n);
-
-	static void centerText(sf::Text& text);
 };
 

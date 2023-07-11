@@ -56,8 +56,6 @@ public:
 
 	static const unsigned long long STRING_TRUNCATION_LENGTH;
 
-	static const float TEXT_OFFSET;
-
 	struct City {
 		std::string name;
 		float lat, lon;
@@ -76,6 +74,7 @@ public:
 	static const unsigned BALANCE_DISPLAY_FONT_SIZE;
 	static const unsigned LAUNCH_PRICE_DISPLAY_FONT_SIZE;
 
+	static const float TEXT_OFFSET;
 	static const sf::Vector2f FPS_DISPLAY_POSITION;
 	static const sf::Vector2f BALANCE_DISPLAY_POSITION;
 	static const sf::Vector2f LAUNCH_PRICE_DISPLAY_POSITION;

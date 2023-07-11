@@ -1,7 +1,5 @@
 #pragma once
 
-// text alignment
-// month & year
 // end game screens
 // cities rework & requests list
 
@@ -9,7 +7,7 @@
 #include <iostream>
 Controller::Controller() {
     onStart();
-    std::cout << Constants::AMOUNT_OF_MONTHS;
+
     sf::Clock deltaClock;
 
     while (window.isOpen())
@@ -211,6 +209,7 @@ void Controller::handleEndGame() {
 
     sf::Texture backgroundTexture;
     sf::RectangleShape backgroud(sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
+    backgroud.setOrigin(backgroud.getLocalBounds().width / 2, backgroud.getLocalBounds().height / 2);
     elonMuskAnimationFrame = 0;
 
     if (isGameWon) {

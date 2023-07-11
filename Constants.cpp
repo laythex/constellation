@@ -54,8 +54,6 @@ const long long Constants::AMOUNT_OF_MONEY_REQUIRED_TO_WIN = 1E9;
 
 const unsigned long long Constants::STRING_TRUNCATION_LENGTH = 1E5;
 
-const float Constants::TEXT_OFFSET = 10;
-
 const Constants::City Constants::CITIES[] = {
 	{"Tokyo", 3.69, 159.69, 37732000},
 	{"Delhi", 28.61, 77.23, 32226000},
@@ -83,10 +81,11 @@ const unsigned Constants::FPS_DISPLAY_FONT_SIZE = 24;
 const unsigned Constants::BALANCE_DISPLAY_FONT_SIZE = 36;
 const unsigned Constants::LAUNCH_PRICE_DISPLAY_FONT_SIZE = 48;
 
-const sf::Vector2f Constants::FPS_DISPLAY_POSITION = sf::Vector2f(-Constants::HORIZONTAL_RESOLUTION / 2 + 40.f, -Constants::VERTICAL_RESOLUTION / 2 + 20.f);
-const sf::Vector2f Constants::BALANCE_DISPLAY_POSITION = sf::Vector2f(Constants::HORIZONTAL_RESOLUTION / 2 - 200.f, -Constants::VERTICAL_RESOLUTION / 2 + 40.f);
-const sf::Vector2f Constants::LAUNCH_PRICE_DISPLAY_POSITION = sf::Vector2f(0, -Constants::VERTICAL_RESOLUTION / 2 + 40.f);
-const sf::Vector2f Constants::DATE_DISPLAY_POSITION = sf::Vector2f(0, Constants::VERTICAL_RESOLUTION / 2 - 40.f);
+const float Constants::TEXT_OFFSET = 10.f;
+const sf::Vector2f Constants::FPS_DISPLAY_POSITION = sf::Vector2f(-Constants::HORIZONTAL_RESOLUTION / 2 + Constants::TEXT_OFFSET, -Constants::VERTICAL_RESOLUTION / 2 + Constants::TEXT_OFFSET);
+const sf::Vector2f Constants::BALANCE_DISPLAY_POSITION = sf::Vector2f(Constants::HORIZONTAL_RESOLUTION / 2 - Constants::TEXT_OFFSET * 2, -Constants::VERTICAL_RESOLUTION / 2 + Constants::TEXT_OFFSET);
+const sf::Vector2f Constants::LAUNCH_PRICE_DISPLAY_POSITION = sf::Vector2f(0, -Constants::VERTICAL_RESOLUTION / 2 + Constants::TEXT_OFFSET * 3);
+const sf::Vector2f Constants::DATE_DISPLAY_POSITION = sf::Vector2f(0, Constants::VERTICAL_RESOLUTION / 2 - Constants::TEXT_OFFSET * 5);
 
 const sf::Vector2f Constants::TUTORIAL_PLATE_SIZE = sf::Vector2f(490.f, 340.f);
 const sf::Vector2f Constants::TUTORIAL_PLATE_POSITION = sf::Vector2f(-Constants::HORIZONTAL_RESOLUTION / 2 + 50.f, Constants::VERTICAL_RESOLUTION / 2 - TUTORIAL_PLATE_SIZE.y - 50.f);

@@ -33,8 +33,3 @@ std::string Tools::formatString(long long n) {
     return r;
 }
 
-void Tools::centerText(sf::Text& text) {
-    sf::Vector2f center = sf::Vector2f(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
-    text.setOrigin(center);
-}
-

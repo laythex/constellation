@@ -14,6 +14,7 @@ public:
 
 private:
 	std::string getMonthAndYear(unsigned long long numberOfMonth);
+	void centerText(sf::Text& text, std::string alignment = "CC");
 
 	sf::Font QoreFont;
 
