@@ -1,4 +1,4 @@
-#pragma once
+#include <cmath>
 
 #include "Satellite.hpp"
 #include "Kepler.hpp"

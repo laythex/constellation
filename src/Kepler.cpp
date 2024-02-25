@@ -1,4 +1,4 @@
-#pragma once
+#include <cmath>
 
 #include "Kepler.hpp"
 

@@ -1,5 +1,4 @@
-#pragma once
-
+#include <cmath>
 #include "Constellation.hpp"
 
 Constellation::Constellation(std::vector<Satellite> sats) : sats(sats) { }

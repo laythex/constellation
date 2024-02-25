@@ -1,7 +1,7 @@
 #include "UIController.hpp"
 
 UIController::UIController() {
-    QoreFont.loadFromFile("fonts/Qore.ttf");
+    QoreFont.loadFromFile("../fonts/Qore.ttf");
 }
 
 void UIController::createTextBoxes() {

@@ -1,10 +1,11 @@
-#pragma once
-
 // end game screens
 // cities rework & requests list
 
-#include "Controller.hpp"
 #include <iostream>
+#include <cmath>
+
+#include "Controller.hpp"
+
 Controller::Controller() {
     onStart();
 

@@ -1,7 +1,8 @@
-#include "Tools.hpp"
-
+#include <cmath>
 #include <chrono>
 #include <random>
+
+#include "Tools.hpp"
 
 int Tools::rand_uns(int min, int max) {
 	unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();

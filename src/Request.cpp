@@ -1,9 +1,7 @@
-#pragma once
+#include <iostream>
+#include <cmath>
 
 #include "Request.hpp"
-
-#include<iostream>
-using namespace std;
 
 Request::Request() {
 	timeToExpire = Constants::REQUEST_DURATION;
@@ -13,7 +11,7 @@ Request::Request() {
 }
 
 void Request::Connect(Constellation net) {
-	vector<Vector> route = net.sendRequest(lat1, lon1, lat2, lon2);
+	std::vector<Vector> route = net.sendRequest(lat1, lon1, lat2, lon2);
 	isSuccessful = route.size() > 2;
 
 	if (!isSuccessful) return;

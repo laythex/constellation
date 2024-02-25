@@ -1,5 +1,7 @@
 #pragma once
 
+#include <limits>
+
 #include <SFML/Graphics.hpp>
 
 class Constants {
