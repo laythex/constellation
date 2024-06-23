@@ -11,11 +11,11 @@ int Tools::rand_uns(int min, int max) {
 	return d(e);
 }
 
-float Tools::constrainAngle(float angle) {
-    while (angle > 2 * Constants::PI)
-        angle -= 2 * Constants::PI;
+double Tools::constrainAngle(double angle, double cap = 2 * Constants::PI) {
+    while (angle > cap)
+        angle -= cap;
     while (angle < 0)
-        angle += 2 * Constants::PI;
+        angle += cap;
     return angle;
 }
 

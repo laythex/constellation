@@ -5,28 +5,28 @@
 class Vector {
 public:
     Vector();
-    Vector(float x, float y, float z);
+    Vector(double x, double y, double z);
 
-    float getMagnitude() const;
+    double getMagnitude() const;
     Vector normalize() const;
 
-    float dot(Vector other) const;
+    double dot(Vector other) const;
     Vector cross(Vector other) const;
 
-    float getX() const;
-    float getY() const;
-    float getZ() const;
+    double getX() const;
+    double getY() const;
+    double getZ() const;
 
-    void setX(float _x);
-    void setY(float _y);
-    void setZ(float _z);
+    void setX(double _x);
+    void setY(double _y);
+    void setZ(double _z);
 
     bool operator==(Vector other) const;
     Vector operator+(Vector other) const;
     Vector operator-(Vector other) const;
-    Vector operator*(float a) const;
-    Vector operator/(float a) const;
+    Vector operator*(double a) const;
+    Vector operator/(double a) const;
 
 private:
-    float x, y, z;
+    double x, y, z;
 };

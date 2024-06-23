@@ -19,12 +19,12 @@ public:
 	sf::CircleShape startPoint, endPoint;
 
 	bool isSuccessful;
-	float timeToExpire;
+	double timeToExpire;
 
 private:
 	void generateCities();
 	void generatePoints();
 
 	Constants::City startCity, endCity;
-	float lat1, lon1, lat2, lon2;
+	double lat1, lon1, lat2, lon2;
 };

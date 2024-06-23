@@ -4,11 +4,13 @@
 #include "Vector.hpp"
 
 class Kepler {
-public:
-	float sma, inc, raan, ta;
+	public:
+	double sma, inc, raan;
 
 	Kepler();
-	Kepler(float sma, float inc, float raan, float ta);
+	Kepler(double sma, double inc, double raan);
 
-	Vector convertToRV() const;
+	Vector convertToRV(double ta) const;
+
+	double calculateOrbitalPeriod() const;
 };

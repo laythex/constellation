@@ -9,7 +9,7 @@ class UIController {
 public:
 	UIController();
 	void createTextBoxes();
-	void updateTextBoxes(float deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth);
+	void updateTextBoxes(double deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth);
 	void drawTextBoxes(sf::RenderWindow& window, bool isSelecting);
 
 private:

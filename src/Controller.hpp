@@ -13,44 +13,33 @@ public:
 	Controller();
 
 private:
-	void drawConstellation(Constellation net, bool isSelectionNet);
-	void drawRequests();
 
 	void onStart();
 	void onUpdate();
-	void handleEndGame();
-	void checkEndGameConditions();
-	void handleSelection();
-	void changeSelectionOrbit();
-	void evenizeSelectionNet();
-	void handleLaunchKeys();
+
+	void handleConstellation();
 	void handleRequests();
-	void handleOrbitDecay();
-	unsigned long long calculateLaunchPrice();
-	unsigned long long getNumberOfMonth();
+	void handleEndGame();
 
-
-	Constellation mainNet;
 	sf::RenderWindow window;
 
+	Input input;
 	UIController uiController;
+	Constellation constellation;
 
 	bool isGameEnded;
 	bool isGameWon;
 
 	long long balance;
-	unsigned long long launchCost;
 
 	unsigned elonMuskAnimationFrame;
 
-	float deltaTimeSeconds;
+	double deltaTime;
 	unsigned long long frameTicker;
 
-	bool isSelecting;
-    Constellation selectionNet;
 
-	float deltaNumberOfSatellites;
-	float timeElapsedBetweenRequests;
+	double deltaNumberOfSatellites;
+	double timeElapsedBetweenRequests;
 
 	std::vector<Request> requests;
 

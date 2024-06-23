@@ -24,7 +24,7 @@ void UIController::createTextBoxes() {
     dateDisplay.setFillColor(Constants::MAIN_COLOR);
 }
 
-void UIController::updateTextBoxes(float deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth) {
+void UIController::updateTextBoxes(double deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth) {
     FPSDisplay.setString(std::to_string((int)(1 / deltaTimeSeconds)));
     centerText(FPSDisplay, "LU");
     FPSDisplay.setPosition(Constants::FPS_DISPLAY_POSITION);

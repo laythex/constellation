@@ -2,25 +2,34 @@
 
 #include "Constants.hpp"
 #include "Vector.hpp"
-#include "Satellite.hpp"
+#include "Orbit.hpp"
+#include "SelectionOrbit.hpp"
 
 const unsigned int DEPTH = 20;
-const float INF = std::numeric_limits<float>::infinity();
+const double INF = std::numeric_limits<double>::infinity();
 
 class Constellation {
 public:
-    Constellation(std::vector<Satellite> sats);
-    Constellation();
+    void advanceTime(double deltaTime);
+    void decayOrbits(double deltaTime);
+    void updateSelectionOrbit(Kepler delta, int deltaSatCount);
+    bool handleLaunchKeys(bool isSelectKeyPressed, bool isLaunchKeyPressed, unsigned long long longbalance);
 
-    void advanceTimeSecs(float s);
+    unsigned long long getLaunchPrice() const;
 
-    std::vector<Vector> sendRequest(float lat1, float lon1, float lat2, float lon2);
-    
-    Satellite& operator[](int i);
+    // std::vector<Vector> sendRequest(double lat1, double lon1, double lat2, double lon2);
 
-    std::vector<Satellite> sats;
+    void draw(sf::RenderWindow& window) const;
+
+    std::vector<Orbit> orbits;
+    SelectionOrbit selectionOrbit;
 
 private:
-    void findRecipient(Satellite current, Vector target, unsigned int step, float distance, float& minDistance,
+    /*
+    void findRecipient(Satellite current, Vector target, unsigned int step, double distance, double& minDistance,
                        std::vector<Satellite>& route, std::vector<Satellite>& shortestRoute);
+    */
+    std::pair<double, double> calculateUnobstructedOrbitSegment();
+
+    bool isSelecting;
 };
