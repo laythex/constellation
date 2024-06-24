@@ -12,16 +12,16 @@ void UIController::createTextBoxes() {
 
     balanceDisplay.setFont(QoreFont);
     balanceDisplay.setCharacterSize(Constants::BALANCE_DISPLAY_FONT_SIZE);
-    balanceDisplay.setFillColor(Constants::MAIN_COLOR);
+    balanceDisplay.setFillColor(Constants::COLOR_MAIN);
 
 
     launchPriceDisplay.setFont(QoreFont);
     launchPriceDisplay.setCharacterSize(Constants::LAUNCH_PRICE_DISPLAY_FONT_SIZE);
-    launchPriceDisplay.setFillColor(Constants::MAIN_COLOR);
+    launchPriceDisplay.setFillColor(Constants::COLOR_MAIN);
 
     dateDisplay.setFont(QoreFont);
     dateDisplay.setCharacterSize(36);
-    dateDisplay.setFillColor(Constants::MAIN_COLOR);
+    dateDisplay.setFillColor(Constants::COLOR_MAIN);
 }
 
 void UIController::updateTextBoxes(double deltaTimeSeconds, long long balance, unsigned long long launchPrice, unsigned long long numberOfMonth) {

@@ -39,7 +39,7 @@ void Input::updateInput(double deltaTime) {
     }
 
     selectKey = sf::Keyboard::isKeyPressed(sf::Keyboard::R);
-    launchKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+    launchKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 }
 
 double Input::getDeltaSma() const { 
@@ -58,10 +58,10 @@ int Input::getDeltaSatCount() const {
     return deltaSatCount; 
 }
 
-bool isSelectKeyPressed() const {
+bool Input::isSelectKeyPressed() const {
     return selectKey;
 }
 
-bool isLaunchKeyPressed() const {
+bool Input::isLaunchKeyPressed() const {
     return launchKey;
 }

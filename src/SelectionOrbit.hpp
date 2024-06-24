@@ -1,10 +1,12 @@
 #pragma once
 
+#include "Orbit.hpp"
+
 class SelectionOrbit : public Orbit {
 
     public:
 
-    SelectionOrbit(Kepler kepler);
+    SelectionOrbit();
 
     void changeKepler(Kepler delta);
     void changeSatCount(int deltaSatCount);

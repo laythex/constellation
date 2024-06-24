@@ -1,7 +1,3 @@
-#include <cmath>
-#include <chrono>
-#include <random>
-
 #include "Tools.hpp"
 
 int Tools::rand_uns(int min, int max) {
@@ -11,7 +7,7 @@ int Tools::rand_uns(int min, int max) {
 	return d(e);
 }
 
-double Tools::constrainAngle(double angle, double cap = 2 * Constants::PI) {
+double Tools::constrainAngle(double angle, double cap) {
     while (angle > cap)
         angle -= cap;
     while (angle < 0)
@@ -34,3 +30,12 @@ std::string Tools::formatString(long long n) {
     return r;
 }
 
+sf::Vector2f Tools::convertWorldToScreen(Vector worldPosition) {
+
+    // Переводим в нужную систему координат
+    double x = worldPosition.getX() * Constants::SCALE_FACTOR;
+    double y = worldPosition.getY() * Constants::SCALE_FACTOR * (-1);
+
+    // Кастуем в флоаты и возвращаем
+    return sf::Vector2f(static_cast<float>(x), static_cast<float>(y));
+}

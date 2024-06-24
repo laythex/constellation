@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Constants.hpp"
+
 class Input {
     public:
 
@@ -21,4 +23,4 @@ class Input {
 
     bool selectKey;
     bool launchKey;
-}
+};

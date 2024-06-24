@@ -1,6 +1,8 @@
-#include "Orbit.hpp"
+#include "SelectionOrbit.hpp"
 
-SelectionOrbit::SelectionOrbit(Kepler kepler) : Orbit(kepler) { }
+SelectionOrbit::SelectionOrbit() : Orbit(Kepler(Constants::SMA_DEFAULT,
+                                                Constants::INC_DEFAULT,
+                                                Constants::RAAN_DEFAULT)) { }
 
 void SelectionOrbit::changeKepler(Kepler delta) {
     kepler.sma += delta.sma;
@@ -8,20 +10,20 @@ void SelectionOrbit::changeKepler(Kepler delta) {
         kepler.sma = Constants::EARTH_RADIUS * 1.01;
     }
 
-    kepler.inc = Tools::constrainAngle(kepler.inc + deltaInc);
-    kep.raan = Tools::constrainAngle(kepler.raan + deltaRaan);
+    kepler.inc = Tools::constrainAngle(kepler.inc + delta.inc);
+    kepler.raan = Tools::constrainAngle(kepler.raan + delta.raan);
 }
 
 
-void Orbit::addSatellite() {
+void SelectionOrbit::addSatellite() {
     // Сделать
 }
 
-void SelectionOrbitOrbit::removeSatellite() { 
+void SelectionOrbit::removeSatellite() { 
     // Сделать
 }
 
-void SelectionOrbitOrbit::changeSatCount(int deltaSatCount) {
+void SelectionOrbit::changeSatCount(int deltaSatCount) {
 
     // Сделать
     
@@ -47,9 +49,7 @@ void SelectionOrbitOrbit::changeSatCount(int deltaSatCount) {
 }
 
 void SelectionOrbit::reset() {
-    kepler.sma = Constants::EARTH_SMA;
-    kepler.inc = Constants::DEFAULT_INC;
-    kepler.raan = Constants::DEFAULT_RAAN;
+    kepler = Kepler(Constants::SMA_DEFAULT, Constants::INC_DEFAULT, Constants::RAAN_DEFAULT);
 }
 
 unsigned long long SelectionOrbit::calculateLaunchPrice() const {

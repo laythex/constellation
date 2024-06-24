@@ -5,11 +5,14 @@
 #include "Orbit.hpp"
 #include "SelectionOrbit.hpp"
 
+// Пофиксить
 const unsigned int DEPTH = 20;
-const double INF = std::numeric_limits<double>::infinity();
+const double INF = 1e150;
 
 class Constellation {
 public:
+    Constellation();
+
     void advanceTime(double deltaTime);
     void decayOrbits(double deltaTime);
     void updateSelectionOrbit(Kepler delta, int deltaSatCount);

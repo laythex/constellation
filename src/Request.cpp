@@ -1,6 +1,3 @@
-#include <iostream>
-#include <cmath>
-
 #include "Request.hpp"
 
 Request::Request() {
@@ -11,6 +8,7 @@ Request::Request() {
 }
 
 void Request::Connect(Constellation net) {
+	/*
 	std::vector<Vector> route = net.sendRequest(lat1, lon1, lat2, lon2);
 	isSuccessful = route.size() > 2;
 
@@ -21,6 +19,7 @@ void Request::Connect(Constellation net) {
 		path[i].position = sf::Vector2f(route[i].getX() * Constants::SCALE_FACTOR,  - route[i].getZ() * Constants::SCALE_FACTOR);
 		path[i].color = sf::Color::Green;
 	}
+	*/
 }
 
 void Request::generateCities() {
@@ -28,10 +27,10 @@ void Request::generateCities() {
 	startCity = Constants::CITIES[Tools::rand_uns(0, numberOfCities - 1)];
 	endCity = Constants::CITIES[Tools::rand_uns(0, numberOfCities - 1)];
 
-	lat1 = startCity.lat * Constants::PI / 180;
-	lon1 = startCity.lon * Constants::PI / 180;
-	lat2 = endCity.lat * Constants::PI / 180;
-	lon2 = endCity.lon * Constants::PI / 180;
+	lat1 = startCity.lat * M_PI / 180;
+	lon1 = startCity.lon * M_PI / 180;
+	lat2 = endCity.lat * M_PI / 180;
+	lon2 = endCity.lon * M_PI / 180;
 }
 
 void Request::generatePoints() {

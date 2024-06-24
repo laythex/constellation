@@ -6,8 +6,7 @@
 
 class Satellite {
 public:
-    Vector getPosition() const;
-
+    /*
     bool isTargetVisible(Vector target) const;
     bool isTargetVisible(Satellite target) const;
 
@@ -19,4 +18,5 @@ public:
 
     bool operator==(Satellite other) const;
     bool operator!=(Satellite other) const;
+    */
 };

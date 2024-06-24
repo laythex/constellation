@@ -6,6 +6,7 @@
 #include "Tools.hpp"
 #include "Constellation.hpp"
 #include "Request.hpp"
+#include "Input.hpp"
 #include "UIController.hpp"
 
 class Controller {
@@ -36,7 +37,6 @@ private:
 
 	double deltaTime;
 	unsigned long long frameTicker;
-
 
 	double deltaNumberOfSatellites;
 	double timeElapsedBetweenRequests;

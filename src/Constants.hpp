@@ -2,9 +2,9 @@
 
 #include "Constants.hpp"
 
+#include <cmath>
 #include <string>
 #include <array>
-
 #include <SFML/Graphics.hpp>
 
 namespace Constants {
@@ -14,8 +14,8 @@ namespace Constants {
 	constexpr double EARTH_RADIUS							= 6.371E6;
 	constexpr double ATMO_HEIGHT							= 100E3;
 
-	constexpr double HORIZONTAL_RESOLUTION					= 1600;
-	constexpr double VERTICAL_RESOLUTION					= 900;
+	constexpr double HORIZONTAL_RESOLUTION					= 960;
+	constexpr double VERTICAL_RESOLUTION					= 720;
 
 	constexpr double EARTH_RADIUS_ON_SCREEN					= 200;
 	constexpr double SCALE_FACTOR							= EARTH_RADIUS_ON_SCREEN / EARTH_RADIUS;
@@ -26,11 +26,11 @@ namespace Constants {
 	constexpr double SMA_CHANGE_RATE						= 2000;
 	constexpr double INC_CHANGE_RATE						= 4;
 	constexpr double RAAN_CHANGE_RATE						= 4;
-	constexpr double NUMBER_OF_SATELLITES_CHANGE_RATE		= 4;
+	constexpr double SAT_COUNT_CHANGE_RATE					= 4;
 
-	constexpr double EARTH_SMA								= EARTH_RADIUS * 1.5;
-	constexpr double DEFAULT_INC							= 0;
-	constexpr double DEFAULT_RAAN							= 0;
+	constexpr double SMA_DEFAULT							= EARTH_RADIUS * 1.5;
+	constexpr double INC_DEFAULT							= M_PI / 6;
+	constexpr double RAAN_DEFAULT							= M_PI / 3;
 
 	constexpr double SIMULATION_SPEED						= 1;
 	constexpr double ORBIT_DECAY_SPEED						= 5;
@@ -86,11 +86,11 @@ namespace Constants {
 		{"Kabul", 2.53, 89.18, 4273156},
 	}};
 
-	const sf::Color MAIN_COLOR								= sf::Color(139, 229, 208, 255);
-	const sf::Color TUTORIAL_PLATE_COLOR					= sf::Color(255, 255, 255, 200);
-	const sf::Color DEFAULT_ORBIT_COLOR						= sf::Color::Green;
-	const sf::Color SELECTION_ORBIT_COLOR					= sf::Color::Magenta;
-	const sf::Color SATELLITE_COLOR							= sf::Color::Red;
+	const sf::Color COLOR_MAIN								= sf::Color(139, 229, 208, 255);
+	const sf::Color COLOR_TUTORIAL_PLATE					= sf::Color(255, 255, 255, 200);
+	const sf::Color COLOR_ORBIT								= sf::Color::Green;
+	const sf::Color COLOR_SELECTION_ORBIT					= sf::Color::Magenta;
+	const sf::Color COLOR_SATELLITE							= sf::Color::Red;
 
 	constexpr unsigned FPS_DISPLAY_FONT_SIZE				= 24;
 	constexpr unsigned BALANCE_DISPLAY_FONT_SIZE			= 36;

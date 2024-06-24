@@ -1,5 +1,8 @@
-#include <cmath>
 #include "Constellation.hpp"
+#include <iostream>
+Constellation::Constellation() {
+    isSelecting = false;
+}
 
 void Constellation::advanceTime(double deltaTime) {
     for (Orbit& orbit : orbits) {
@@ -31,6 +34,7 @@ bool Constellation::handleLaunchKeys(bool isSelectKeyPressed, bool isLaunchKeyPr
     // Начало selectionа
     if (isSelectKeyPressed && !isSelecting) {
         isSelecting = true;
+        std::cout << "R is pressed" << std::endl;
 
         selectionOrbit.reset();
 
@@ -128,6 +132,10 @@ void Constellation::findRecipient(Satellite current, Vector target, unsigned int
 void Constellation::draw(sf::RenderWindow& window) const {
     for (const Orbit& orbit : orbits) {
         orbit.draw(window);
+    }
+
+    if (isSelecting) {
+        selectionOrbit.draw(window);
     }
 
     /*

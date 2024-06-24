@@ -1,12 +1,10 @@
+#include "Controller.hpp"
+
+#include <iostream>
 // end game screens
 // cities rework & requests list
 
-#include <iostream>
-#include <cmath>
-
-#include "Controller.hpp"
-
-Controller::Controller() {
+Controller::Controller() : constellation(Constellation()) {
     
     onStart();
 
@@ -43,8 +41,6 @@ void Controller::onStart() {
     isGameEnded = false;
     isGameWon = false;
 
-    isSelecting = false;
-
     deltaNumberOfSatellites = 1;
     timeElapsedBetweenRequests = 0;
 
@@ -60,12 +56,14 @@ void Controller::onStart() {
     earth.setOrigin(Constants::EARTH_RADIUS_ON_SCREEN, Constants::EARTH_RADIUS_ON_SCREEN);
     earth.setPosition(0, 0);
 
+    /*
     tutorialPlateTexture.loadFromFile(Constants::TUTORIAL_PLATE_TEXTURE_PATH);
 
     tutorialPlate = sf::RectangleShape(Constants::TUTORIAL_PLATE_SIZE);
     tutorialPlate.setTexture(&tutorialPlateTexture);
-    tutorialPlate.setFillColor(Constants::TUTORIAL_PLATE_COLOR);
+    tutorialPlate.setFillColor(Constants::COLOR_TUTORIAL_PLATE);
     tutorialPlate.setPosition(Constants::TUTORIAL_PLATE_POSITION);
+    */
 }
 
 void Controller::onUpdate() {
@@ -84,7 +82,7 @@ void Controller::onUpdate() {
 
     // handleRequests();
 
-    uiController.updateTextBoxes(deltaTime, balance, launchPrice, getNumberOfMonth());
+    // uiController.updateTextBoxes(deltaTime, balance, constellation.getLaunchPrice(), getNumberOfMonth());
 
     window.clear();
 

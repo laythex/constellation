@@ -1,7 +1,10 @@
 #pragma once
 
+#include <cmath>
+
 #include "Constants.hpp"
 #include "Vector.hpp"
+#include "Tools.hpp"
 #include "Kepler.hpp"
 #include "Satellite.hpp"
 
@@ -22,14 +25,17 @@ class Orbit {
 
     void decay(double deltaTime);
 
-    void draw(sf::RenderWindow window) const;
+    void draw(sf::RenderWindow& window) const;
 
-    private:
+    protected:
 
     std::pair<double, double> calculateUnobstructedOrbitSegment() const;
     Vector calculateFlatPosition(double phi) const;
 
     Kepler kepler;
     std::vector<std::pair<Satellite, double>> satellites;
+
+    private:
+    
     bool isDecayed;
 };

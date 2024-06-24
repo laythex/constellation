@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include "Constants.hpp"
     
 class Vector {
@@ -10,8 +12,8 @@ public:
     double getMagnitude() const;
     Vector normalize() const;
 
-    double dot(Vector other) const;
-    Vector cross(Vector other) const;
+    double dot(const Vector& other) const;
+    Vector cross(const Vector& other) const;
 
     double getX() const;
     double getY() const;
@@ -21,12 +23,14 @@ public:
     void setY(double _y);
     void setZ(double _z);
 
-    bool operator==(Vector other) const;
-    Vector operator+(Vector other) const;
-    Vector operator-(Vector other) const;
+    bool operator==(const Vector& other) const;
+    Vector operator+(const Vector& other) const;
+    Vector operator-(const Vector& other) const;
     Vector operator*(double a) const;
     Vector operator/(double a) const;
 
 private:
     double x, y, z;
 };
+
+std::ostream& operator<<(std::ostream& os, const Vector& v);

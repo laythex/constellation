@@ -1,9 +1,5 @@
 #include "Satellite.hpp"
-
-Vector Satellite::getPosition() const {
-    return kepler.convertToRV();
-}
-
+/*
 bool Satellite::isTargetVisible(Vector target) const {
     Vector pos = getPosition();
     Vector dir = target - pos;
@@ -39,3 +35,4 @@ bool Satellite::operator==(Satellite other) const {
 bool Satellite::operator!=(Satellite other) const {
     return id != other.getId();
 }
+*/

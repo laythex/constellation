@@ -1,13 +1,21 @@
 #pragma once
 
+#include <cmath>
+#include <chrono>
+#include <random>
+#include <SFML/Graphics.hpp>
+
 #include "Constants.hpp"
+#include "Vector.hpp"
 
-class Tools {
-public:
-	static int rand_uns(int min, int max);
+namespace Tools {
+	int rand_uns(int min, int max);
 	
-	static double constrainAngle(double angle, double cap);
+	double constrainAngle(double angle, double cap = M_2_PI);
 
-	static std::string formatString(long long n);
+	std::string formatString(long long n);
+
+	// Конвертируем вектор из физической системы координат в систему координат экрана
+	sf::Vector2f convertWorldToScreen(Vector worldPosition);
 };
 
