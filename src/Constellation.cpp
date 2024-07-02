@@ -1,5 +1,5 @@
 #include "Constellation.hpp"
-#include <iostream>
+
 Constellation::Constellation() {
     isSelecting = false;
 }
@@ -34,10 +34,7 @@ bool Constellation::handleLaunchKeys(bool isSelectKeyPressed, bool isLaunchKeyPr
     // Начало selectionа
     if (isSelectKeyPressed && !isSelecting) {
         isSelecting = true;
-        std::cout << "R is pressed" << std::endl;
-
         selectionOrbit.reset();
-
         selectionOrbit.addSatellite();
     }
 

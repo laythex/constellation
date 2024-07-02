@@ -31,7 +31,7 @@ private:
 	bool isGameEnded;
 	bool isGameWon;
 
-	long long balance;
+	unsigned long long balance;
 
 	unsigned elonMuskAnimationFrame;
 

@@ -12,5 +12,5 @@ Vector Kepler::convertToRV(double ta) const {
 }
 
 double Kepler::calculateOrbitalPeriod() const {
-    return M_2_PI * sqrt(sma * sma * sma / Constants::EARTH_MU);
+    return M_2PI * sqrt(sma * sma * sma / Constants::EARTH_MU);
 }

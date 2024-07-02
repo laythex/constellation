@@ -11,7 +11,7 @@
 namespace Tools {
 	int rand_uns(int min, int max);
 	
-	double constrainAngle(double angle, double cap = M_2_PI);
+	double constrainAngle(double angle, double cap = M_2PI);
 
 	std::string formatString(long long n);
 

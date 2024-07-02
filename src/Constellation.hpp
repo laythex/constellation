@@ -16,7 +16,7 @@ public:
     void advanceTime(double deltaTime);
     void decayOrbits(double deltaTime);
     void updateSelectionOrbit(Kepler delta, int deltaSatCount);
-    bool handleLaunchKeys(bool isSelectKeyPressed, bool isLaunchKeyPressed, unsigned long long longbalance);
+    bool handleLaunchKeys(bool isSelectKeyPressed, bool isLaunchKeyPressed, unsigned long long balance);
 
     unsigned long long getLaunchPrice() const;
 

@@ -28,10 +28,11 @@ Controller::Controller() : constellation(Constellation()) {
 }
 
 void Controller::onStart() {
-    window.create(sf::VideoMode(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION), "Satellite Constellation");
+    window.create(sf::VideoMode(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT), "Satellite Constellation");
+    window.setPosition(Constants::WINDOW_POSITION);
     window.setFramerateLimit(Constants::FRAME_RATE);
 
-    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
+    sf::View view(sf::Vector2f(0, 0), sf::Vector2f(Constants::WINDOW_WIDTH, Constants::WINDOW_HEIGHT));
     window.setView(view);
 
     frameTicker = 0;
@@ -104,7 +105,11 @@ void Controller::handleConstellation() {
 
     bool hasLaunched = constellation.handleLaunchKeys(input.isSelectKeyPressed(), input.isLaunchKeyPressed(), balance);
     if (hasLaunched) {
-        balance -= constellation.getLaunchPrice();
+        if (balance > constellation.getLaunchPrice()) {
+            balance -= constellation.getLaunchPrice();
+        } else {
+            balance = 0;
+        }
     }
 }
 
@@ -153,7 +158,7 @@ void Controller::handleEndGame() {
     window.clear();
 
     sf::Texture backgroundTexture;
-    sf::RectangleShape backgroud(sf::Vector2f(Constants::HORIZONTAL_RESOLUTION, Constants::VERTICAL_RESOLUTION));
+    sf::RectangleShape backgroud(sf::Vector2f(Constants::WINDOW_HEIGHT, Constants::WINDOW_WIDTH));
     backgroud.setOrigin(backgroud.getLocalBounds().width / 2, backgroud.getLocalBounds().height / 2);
     elonMuskAnimationFrame = 0;
 
